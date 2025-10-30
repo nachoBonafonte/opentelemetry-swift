@@ -13,10 +13,12 @@ jobs:
 
       - name: Use latest opentelemetry-swift-core (main)
         run: |
-          # Clean previous editable state
-          swift package unedit opentelemetry-swift-core || true
+          # Clean previous editable state if exists
+          if swift package show-dependencies | grep -q "opentelemetry-swift-core.*(edited)"; then
+              swift package unedit opentelemetry-swift-core
+          fi
           rm -rf .swiftpm/editables/opentelemetry-swift-core
-          # Edit dependency to point to main
+          # Edit dependency to main branch
           swift package edit opentelemetry-swift-core --branch main
           swift package update
 
@@ -34,7 +36,9 @@ jobs:
 
       - name: Use latest opentelemetry-swift-core (main)
         run: |
-          swift package unedit opentelemetry-swift-core || true
+          if swift package show-dependencies | grep -q "opentelemetry-swift-core.*(edited)"; then
+              swift package unedit opentelemetry-swift-core
+          fi
           rm -rf .swiftpm/editables/opentelemetry-swift-core
           swift package edit opentelemetry-swift-core --branch main
           swift package update
@@ -56,7 +60,9 @@ jobs:
 
       - name: Use latest opentelemetry-swift-core (main)
         run: |
-          swift package unedit opentelemetry-swift-core || true
+          if swift package show-dependencies | grep -q "opentelemetry-swift-core.*(edited)"; then
+              swift package unedit opentelemetry-swift-core
+          fi
           rm -rf .swiftpm/editables/opentelemetry-swift-core
           swift package edit opentelemetry-swift-core --branch main
           swift package update
@@ -78,7 +84,9 @@ jobs:
 
       - name: Use latest opentelemetry-swift-core (main)
         run: |
-          swift package unedit opentelemetry-swift-core || true
+          if swift package show-dependencies | grep -q "opentelemetry-swift-core.*(edited)"; then
+              swift package unedit opentelemetry-swift-core
+          fi
           rm -rf .swiftpm/editables/opentelemetry-swift-core
           swift package edit opentelemetry-swift-core --branch main
           swift package update
@@ -100,7 +108,9 @@ jobs:
 
       - name: Use latest opentelemetry-swift-core (main)
         run: |
-          swift package unedit opentelemetry-swift-core || true
+          if swift package show-dependencies | grep -q "opentelemetry-swift-core.*(edited)"; then
+              swift package unedit opentelemetry-swift-core
+          fi
           rm -rf .swiftpm/editables/opentelemetry-swift-core
           swift package edit opentelemetry-swift-core --branch main
           swift package update
@@ -124,7 +134,9 @@ jobs:
 
       - name: Use latest opentelemetry-swift-core (main)
         run: |
-          swift package unedit opentelemetry-swift-core || true
+          if swift package show-dependencies | grep -q "opentelemetry-swift-core.*(edited)"; then
+              swift package unedit opentelemetry-swift-core
+          fi
           rm -rf .swiftpm/editables/opentelemetry-swift-core
           swift package edit opentelemetry-swift-core --branch main
           swift package update
