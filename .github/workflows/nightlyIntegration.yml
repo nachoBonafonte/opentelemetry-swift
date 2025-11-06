@@ -13,13 +13,24 @@ jobs:
 
       - name: Use latest opentelemetry-swift-core (main)
         run: |
+          set -euxo pipefail
           # Clean previous editable state if exists
           if swift package show-dependencies | grep -q "opentelemetry-swift-core.*(edited)"; then
               swift package unedit opentelemetry-swift-core
           fi
+
+          # Remove any leftover editable or cached repos
           rm -rf .swiftpm/editables/opentelemetry-swift-core
-          # Edit dependency to main branch
+          rm -rf .build/checkouts/opentelemetry-swift-core
+          rm -rf .build/repositories/opentelemetry-swift-core*
+
+          # Freshly edit dependency to main branch
           swift package edit opentelemetry-swift-core --branch main
+          cd .swiftpm/editables/opentelemetry-swift-core
+          git fetch origin main
+          git checkout main
+          git reset --hard origin/main
+          cd -
           swift package update
 
       - uses: maxim-lobanov/setup-xcode@60606e260d2fc5762a71e64e74b2174e8ea3c8bd
@@ -36,11 +47,19 @@ jobs:
 
       - name: Use latest opentelemetry-swift-core (main)
         run: |
+          set -euxo pipefail
           if swift package show-dependencies | grep -q "opentelemetry-swift-core.*(edited)"; then
               swift package unedit opentelemetry-swift-core
           fi
           rm -rf .swiftpm/editables/opentelemetry-swift-core
+          rm -rf .build/checkouts/opentelemetry-swift-core
+          rm -rf .build/repositories/opentelemetry-swift-core*
           swift package edit opentelemetry-swift-core --branch main
+          cd .swiftpm/editables/opentelemetry-swift-core
+          git fetch origin main
+          git checkout main
+          git reset --hard origin/main
+          cd -
           swift package update
 
       - uses: maxim-lobanov/setup-xcode@60606e260d2fc5762a71e64e74b2174e8ea3c8bd
@@ -60,11 +79,19 @@ jobs:
 
       - name: Use latest opentelemetry-swift-core (main)
         run: |
+          set -euxo pipefail
           if swift package show-dependencies | grep -q "opentelemetry-swift-core.*(edited)"; then
               swift package unedit opentelemetry-swift-core
           fi
           rm -rf .swiftpm/editables/opentelemetry-swift-core
+          rm -rf .build/checkouts/opentelemetry-swift-core
+          rm -rf .build/repositories/opentelemetry-swift-core*
           swift package edit opentelemetry-swift-core --branch main
+          cd .swiftpm/editables/opentelemetry-swift-core
+          git fetch origin main
+          git checkout main
+          git reset --hard origin/main
+          cd -
           swift package update
 
       - uses: maxim-lobanov/setup-xcode@60606e260d2fc5762a71e64e74b2174e8ea3c8bd
@@ -84,11 +111,19 @@ jobs:
 
       - name: Use latest opentelemetry-swift-core (main)
         run: |
+          set -euxo pipefail
           if swift package show-dependencies | grep -q "opentelemetry-swift-core.*(edited)"; then
               swift package unedit opentelemetry-swift-core
           fi
           rm -rf .swiftpm/editables/opentelemetry-swift-core
+          rm -rf .build/checkouts/opentelemetry-swift-core
+          rm -rf .build/repositories/opentelemetry-swift-core*
           swift package edit opentelemetry-swift-core --branch main
+          cd .swiftpm/editables/opentelemetry-swift-core
+          git fetch origin main
+          git checkout main
+          git reset --hard origin/main
+          cd -
           swift package update
 
       - uses: maxim-lobanov/setup-xcode@60606e260d2fc5762a71e64e74b2174e8ea3c8bd
@@ -108,11 +143,19 @@ jobs:
 
       - name: Use latest opentelemetry-swift-core (main)
         run: |
+          set -euxo pipefail
           if swift package show-dependencies | grep -q "opentelemetry-swift-core.*(edited)"; then
               swift package unedit opentelemetry-swift-core
           fi
           rm -rf .swiftpm/editables/opentelemetry-swift-core
+          rm -rf .build/checkouts/opentelemetry-swift-core
+          rm -rf .build/repositories/opentelemetry-swift-core*
           swift package edit opentelemetry-swift-core --branch main
+          cd .swiftpm/editables/opentelemetry-swift-core
+          git fetch origin main
+          git checkout main
+          git reset --hard origin/main
+          cd -
           swift package update
 
       - uses: maxim-lobanov/setup-xcode@60606e260d2fc5762a71e64e74b2174e8ea3c8bd
@@ -134,11 +177,19 @@ jobs:
 
       - name: Use latest opentelemetry-swift-core (main)
         run: |
+          set -euxo pipefail
           if swift package show-dependencies | grep -q "opentelemetry-swift-core.*(edited)"; then
               swift package unedit opentelemetry-swift-core
           fi
           rm -rf .swiftpm/editables/opentelemetry-swift-core
+          rm -rf .build/checkouts/opentelemetry-swift-core
+          rm -rf .build/repositories/opentelemetry-swift-core*
           swift package edit opentelemetry-swift-core --branch main
+          cd .swiftpm/editables/opentelemetry-swift-core
+          git fetch origin main
+          git checkout main
+          git reset --hard origin/main
+          cd -
           swift package update
 
       - name: Build tests for Linux
