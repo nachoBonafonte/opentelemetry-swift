@@ -14,15 +14,17 @@ jobs:
       - name: Use latest opentelemetry-swift-core (main)
         run: |
           set -euxo pipefail
+
           # Clean previous editable state if exists
           if swift package show-dependencies | grep -q "opentelemetry-swift-core.*(edited)"; then
               swift package unedit opentelemetry-swift-core
           fi
 
-          # Remove any leftover editable or cached repos
+          # Remove all cached and editable repos to avoid stale branches
           rm -rf .swiftpm/editables/opentelemetry-swift-core
           rm -rf .build/checkouts/opentelemetry-swift-core
-          rm -rf .build/repositories/opentelemetry-swift-core*
+          rm -rf .build/repositories
+          rm -rf .package-cache || true
 
           # Freshly edit dependency to main branch
           swift package edit opentelemetry-swift-core --branch main
@@ -53,7 +55,8 @@ jobs:
           fi
           rm -rf .swiftpm/editables/opentelemetry-swift-core
           rm -rf .build/checkouts/opentelemetry-swift-core
-          rm -rf .build/repositories/opentelemetry-swift-core*
+          rm -rf .build/repositories
+          rm -rf .package-cache || true
           swift package edit opentelemetry-swift-core --branch main
           cd .swiftpm/editables/opentelemetry-swift-core
           git fetch origin main
@@ -85,7 +88,8 @@ jobs:
           fi
           rm -rf .swiftpm/editables/opentelemetry-swift-core
           rm -rf .build/checkouts/opentelemetry-swift-core
-          rm -rf .build/repositories/opentelemetry-swift-core*
+          rm -rf .build/repositories
+          rm -rf .package-cache || true
           swift package edit opentelemetry-swift-core --branch main
           cd .swiftpm/editables/opentelemetry-swift-core
           git fetch origin main
@@ -117,7 +121,8 @@ jobs:
           fi
           rm -rf .swiftpm/editables/opentelemetry-swift-core
           rm -rf .build/checkouts/opentelemetry-swift-core
-          rm -rf .build/repositories/opentelemetry-swift-core*
+          rm -rf .build/repositories
+          rm -rf .package-cache || true
           swift package edit opentelemetry-swift-core --branch main
           cd .swiftpm/editables/opentelemetry-swift-core
           git fetch origin main
@@ -149,7 +154,8 @@ jobs:
           fi
           rm -rf .swiftpm/editables/opentelemetry-swift-core
           rm -rf .build/checkouts/opentelemetry-swift-core
-          rm -rf .build/repositories/opentelemetry-swift-core*
+          rm -rf .build/repositories
+          rm -rf .package-cache || true
           swift package edit opentelemetry-swift-core --branch main
           cd .swiftpm/editables/opentelemetry-swift-core
           git fetch origin main
@@ -183,7 +189,8 @@ jobs:
           fi
           rm -rf .swiftpm/editables/opentelemetry-swift-core
           rm -rf .build/checkouts/opentelemetry-swift-core
-          rm -rf .build/repositories/opentelemetry-swift-core*
+          rm -rf .build/repositories
+          rm -rf .package-cache || true
           swift package edit opentelemetry-swift-core --branch main
           cd .swiftpm/editables/opentelemetry-swift-core
           git fetch origin main
