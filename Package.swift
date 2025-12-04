@@ -4,6 +4,9 @@
 import Foundation
 import PackageDescription
 
+
+let coreVersion: PackageDescription.Version = "2.3.0"
+
 let package = Package(
   name: "opentelemetry-swift",
   platforms: [
@@ -29,10 +32,10 @@ let package = Package(
     .executable(name: "StableMetricSample", targets: ["StableMetricSample"])
   ],
   dependencies: [
-    .package(url: "https://github.com/open-telemetry/opentelemetry-swift-core.git", from: "2.2.0"),
-    .package(url: "https://github.com/apple/swift-nio.git", from: "2.87.0"),
+    otelCoreDependency,
+    .package(url: "https://github.com/apple/swift-nio.git", from: "2.90.1"),
     .package(url: "https://github.com/grpc/grpc-swift.git", exact: "1.27.0"),
-    .package(url: "https://github.com/apple/swift-protobuf.git", from: "1.32.0"),
+    .package(url: "https://github.com/apple/swift-protobuf.git", from: "1.33.3"),
     .package(url: "https://github.com/apple/swift-log.git", from: "1.6.4"),
     .package(url: "https://github.com/apple/swift-metrics.git", from: "2.7.1")
   ],
@@ -210,6 +213,15 @@ let package = Package(
   ]
 ).addPlatformSpecific()
 
+let otelCoreDependency: Package.Dependency = {
+    if let envBranch = ProcessInfo.processInfo.environment["OTEL_CORE_BRANCH_OR_TAG"], !envBranch.isEmpty {
+        return .package(url: "https://github. com/open-telemetry/opentelemetry-swift-core.git", branch: envBranch)
+    } else {
+        return .package(url: "https://github.com/open-telemetry/opentelemetry-swift-core.git", from: coreVersion)
+    }
+}()
+
+
 extension Package {
   func addPlatformSpecific() -> Self {
     #if canImport(ObjectiveC)
@@ -253,7 +265,8 @@ extension Package {
         .executable(name: "OTLPExporter", targets: ["OTLPExporter"]),
         .executable(name: "OTLPHTTPExporter", targets: ["OTLPHTTPExporter"]),
         .library(name: "SignPostIntegration", targets: ["SignPostIntegration"]),
-        .library(name: "ResourceExtension", targets: ["ResourceExtension"])
+        .library(name: "ResourceExtension", targets: ["ResourceExtension"]),
+        .library(name: "MetricKitInstrumentation", targets: ["MetricKitInstrumentation"])
       ])
       targets.append(contentsOf: [
         .target(
@@ -380,6 +393,23 @@ extension Package {
             .product(name: "OpenTelemetrySdk", package: "opentelemetry-swift-core")
           ],
           path: "Tests/InstrumentationTests/SDKResourceExtensionTests"
+        ),
+        .target(
+          name: "MetricKitInstrumentation",
+          dependencies: [
+            .product(name: "OpenTelemetrySdk", package: "opentelemetry-swift-core")
+          ],
+          path: "Sources/Instrumentation/MetricKit",
+          exclude: ["README.md"]
+        ),
+        .testTarget(
+          name: "MetricKitInstrumentationTests",
+          dependencies: [
+            "MetricKitInstrumentation",
+            "InMemoryExporter",
+            .product(name: "OpenTelemetrySdk", package: "opentelemetry-swift-core")
+          ],
+          path: "Tests/InstrumentationTests/MetricKitTests"
         ),
         .executableTarget(
           name: "PrometheusSample",
