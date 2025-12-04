@@ -11,69 +11,69 @@ jobs:
   macOS:
     runs-on: macos-15
     steps:
-    - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-    - name: Set OTEL_CORE_BRANCH_OR_TAG
-      run: echo "OTEL_CORE_BRANCH_OR_TAG=main" >> $GITHUB_ENV
-    - uses: maxim-lobanov/setup-xcode@60606e260d2fc5762a71e64e74b2174e8ea3c8bd # v1.6.0
+    - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5. 0.0
+    - uses: maxim-lobanov/setup-xcode@60606e260d2fc5762a71e64e74b2174e8ea3c8bd # v1. 6.0
       with:
         xcode-version: 16.4
     - name: Build for macOS
+      env:
+        OTEL_CORE_BRANCH_OR_TAG: main
       run: swift build
 
   iOS:
     runs-on: macos-15
     steps:
-    - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-    - name: Set OTEL_CORE_BRANCH_OR_TAG
-      run: echo "OTEL_CORE_BRANCH_OR_TAG=main" >> $GITHUB_ENV
-    - uses: maxim-lobanov/setup-xcode@60606e260d2fc5762a71e64e74b2174e8ea3c8bd # v1.6.0
+    - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5. 0.0
+    - uses: maxim-lobanov/setup-xcode@60606e260d2fc5762a71e64e74b2174e8ea3c8bd # v1. 6.0
       with:
         xcode-version: 16.4
     - name: Install Homebrew kegs
       run: make setup-brew
     - name: Build for iOS
+      env:
+        OTEL_CORE_BRANCH_OR_TAG: main
       run: make build-ios
 
   tvOS:
     runs-on: macos-15
     steps:
     - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-    - name: Set OTEL_CORE_BRANCH_OR_TAG
-      run: echo "OTEL_CORE_BRANCH_OR_TAG=main" >> $GITHUB_ENV
     - uses: maxim-lobanov/setup-xcode@60606e260d2fc5762a71e64e74b2174e8ea3c8bd # v1.6.0
       with:
         xcode-version: 16.4
     - name: Install Homebrew kegs
       run: make setup-brew
     - name: Build for tvOS
+      env:
+        OTEL_CORE_BRANCH_OR_TAG: main
       run: make build-tvos
 
   watchOS:
     runs-on: macos-15
     steps:
     - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-    - name: Set OTEL_CORE_BRANCH_OR_TAG
-      run: echo "OTEL_CORE_BRANCH_OR_TAG=main" >> $GITHUB_ENV
     - uses: maxim-lobanov/setup-xcode@60606e260d2fc5762a71e64e74b2174e8ea3c8bd # v1.6.0
       with:
         xcode-version: 16.4
     - name: Install Homebrew kegs
       run: make setup-brew
     - name: Build for watchOS
+      env:
+        OTEL_CORE_BRANCH_OR_TAG: main
       run: make build-watchos
 
   visionOS:
     runs-on: macos-15
     steps:
-    - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-    - name: Set OTEL_CORE_BRANCH_OR_TAG
-      run: echo "OTEL_CORE_BRANCH_OR_TAG=main" >> $GITHUB_ENV
-    - uses: maxim-lobanov/setup-xcode@60606e260d2fc5762a71e64e74b2174e8ea3c8bd # v1.6.0
+    - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5. 0.0
+    - uses: maxim-lobanov/setup-xcode@60606e260d2fc5762a71e64e74b2174e8ea3c8bd # v1. 6.0
       with:
         xcode-version: 16.4
     - name: Install Homebrew kegs
       run: make setup-brew
     - name: Build for visionOS
+      env:
+        OTEL_CORE_BRANCH_OR_TAG: main
       run: make build-visionos
 
   linux:
@@ -81,7 +81,7 @@ jobs:
     container: swift:6.1@sha256:e2a8181242cbffdb3ada767da44d1bc6681bad37f03525f5b7165f6421806ca3
     steps:
     - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-    - name: Set OTEL_CORE_BRANCH_OR_TAG
-      run: echo "OTEL_CORE_BRANCH_OR_TAG=main" >> $GITHUB_ENV
     - name: Build tests for Linux
+      env:
+        OTEL_CORE_BRANCH_OR_TAG: main
       run: swift build
