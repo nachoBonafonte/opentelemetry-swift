@@ -215,7 +215,7 @@ let package = Package(
 
 let otelCoreDependency: Package.Dependency = {
     if let envBranch = ProcessInfo.processInfo.environment["OTEL_CORE_BRANCH_OR_TAG"], !envBranch.isEmpty {
-        return .package(url: "https://github. com/open-telemetry/opentelemetry-swift-core.git", branch: envBranch)
+        return .package(url: "https://github.com/open-telemetry/opentelemetry-swift-core.git", branch: envBranch)
     } else {
         return .package(url: "https://github.com/open-telemetry/opentelemetry-swift-core.git", from: coreVersion)
     }
